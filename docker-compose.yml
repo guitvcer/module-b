@@ -1,0 +1,19 @@
+version: '3.8'
+
+x-environment-vars: &environment-vars
+  TERM: linux
+
+services:
+  module_b:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    image: worldskills_module_b
+    environment:
+      <<: *environment-vars
+    volumes:
+      - /proj
+      - .:/proj
+    command: npm run serve
+    stdin_open: true
+    tty: true

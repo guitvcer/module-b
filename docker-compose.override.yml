@@ -1,0 +1,4 @@
+services:
+  module_b:
+    ports:
+      - 8889:8080
