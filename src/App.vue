@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-slate-50 dark:bg-zinc-900 dark:text-zinc-100 h-full">
+  <div class="bg-slate-50 dark:bg-zinc-900 dark:text-zinc-100 h-screen">
     <the-header />
   </div>
 </template>
