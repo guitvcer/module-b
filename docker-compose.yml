@@ -12,7 +12,6 @@ services:
     environment:
       <<: *environment-vars
     volumes:
-      - /proj
       - .:/proj
     command: npm run serve
     stdin_open: true
