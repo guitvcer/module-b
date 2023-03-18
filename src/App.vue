@@ -1,5 +1,5 @@
 <template>
-  <div class="h-full">
+  <div class="bg-slate-50 h-full">
     <the-header />
   </div>
 </template>
