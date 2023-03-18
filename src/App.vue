@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col justify-center">
+  <div class="h-full">
     <the-header />
   </div>
 </template>

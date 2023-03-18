@@ -1,5 +1,5 @@
 <template>
-  <header class="px-10 py-2 flex justify-between items-center border-b w-full max-w-screen-lg m-auto">
+  <header class="bg-white px-10 py-2 flex justify-between items-center border-b w-full max-w-screen-lg m-auto">
     <h1>
       <a href="#"
          class="inline py-1 px-2 text-xl font-bold italic text-slate-100
