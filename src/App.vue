@@ -1,6 +1,8 @@
 <template>
   <div class="bg-slate-50 dark:bg-zinc-900 dark:text-zinc-100 h-screen">
-    <the-header />
+    <div class="max-w-screen-lg m-auto">
+      <the-header />
+    </div>
   </div>
 </template>
 
