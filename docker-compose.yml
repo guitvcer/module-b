@@ -9,6 +9,7 @@ services:
       context: .
       dockerfile: ./Dockerfile
     image: worldskills_module_b
+    env_file: .env
     environment:
       <<: *environment-vars
     volumes:
