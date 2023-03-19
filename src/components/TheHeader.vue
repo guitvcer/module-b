@@ -1,5 +1,5 @@
 <template>
-  <header class="px-8 py-2
+  <header class="px-4 py-2
                  flex justify-between items-center
                  border-b dark:border-zinc-700">
     <h1>
