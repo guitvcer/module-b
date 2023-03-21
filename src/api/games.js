@@ -1,9 +1,10 @@
 import { api_url } from '@/settings'
 import api from '.'
+import { isAuthenticated } from '@/utils'
 
 const getHeaders = () => {
   const headers = {}
-  if (localStorage.accessToken) {
+  if (isAuthenticated()) {
     headers.Authorization = `Bearer ${localStorage.accessToken}`
   }
 

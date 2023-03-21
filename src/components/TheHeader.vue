@@ -4,13 +4,13 @@
                  border-b dark:border-zinc-700">
     <logo />
     <div>
-      <a
+      <router-link
         v-if="!isAuthenticated()"
-        href="#"
+        :to="{name: 'signUp'}"
         class="px-2 hover:underline"
       >
         Sign Up
-      </a>
+      </router-link>
       <router-link
         v-if="!isAuthenticated()"
         :to="{name: 'signIn'}"
