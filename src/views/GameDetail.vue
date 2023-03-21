@@ -6,20 +6,16 @@
       <section class="grid md:grid-cols-2 gap-8 py-2">
         <div>
           <h3 class="text-xl py-2 underline">Top 10 Leaderboard</h3>
-          <ul class="list-decimal list-inside">
-            <li class="inline-flex justify-between w-full">
-              <p class="block">#1. IntelligentTurtle</p>
-              <p class="block">10908</p>
-            </li>
-            <li class="inline-flex justify-between w-full">
-              <p class="block">#2. IntelligentTurtle</p>
-              <p class="block">10908</p>
-            </li>
-            <li class="inline-flex justify-between w-full py-2">
-              <p class="block font-bold">#100500. Qwerty</p>
-              <p class="block">10908</p>
+          <ul class="list-decimal list-inside" v-if="scores && scores.length > 0">
+            <li
+              class="inline-flex justify-between w-full"
+              v-for="index in 9"
+            >
+              <p class="block">#{{ index + 1 }}. {{ scores[index].username }}</p>
+              <p class="block">{{ scores[index].score }}</p>
             </li>
           </ul>
+          <p v-else class="text-sm text-zinc-700">Empty list</p>
         </div>
         <div>
           <h3 class="text-xl py-2 underline">Description</h3>
@@ -43,16 +39,22 @@ export default {
   data() {
     return {
       game: null,
-      source: null
+      scores: null
     }
   },
   async mounted() {
     const slug = router.currentRoute.value.params.slug
     this.game = await api.games.getBySlug(slug)
+
+    await this.loadScores()
+    setInterval(this.loadScores, 5000)
   },
   methods: {
     getGameServeUrl() {
       return `${base_url}/games/${this.game.slug}/${this.game.lastVersion}`
+    },
+    async loadScores() {
+      this.scores = (await api.games.getScores(this.game.slug)).scores
     }
   }
 }
