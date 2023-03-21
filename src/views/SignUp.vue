@@ -30,6 +30,7 @@
 import router from '@/router.js'
 import api from '@/api'
 import Logo from '@/components/Logo.vue'
+import { isAuthenticated } from '@/utils.js'
 
 export default {
   components: {
@@ -76,6 +77,11 @@ export default {
       localStorage.setItem('accessToken', accessToken)
 
       this.$root.$refs.alert.showAlert('success', 'You are signed in.', 'Success')
+      await router.push({ name: 'home' })
+    }
+  },
+  async mounted() {
+    if (isAuthenticated()) {
       await router.push({ name: 'home' })
     }
   }
