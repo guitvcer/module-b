@@ -35,14 +35,21 @@ export default {
   },
   methods: {
     async signIn(event) {
-      const username = event.target.username.value
-      const password = event.target.password.value
-      event.target.reset()
+      const form = event.target
+      const username = form.username.value
+      const password = form.password.value
+      form.reset()
 
-      const refreshToken = (await api.auth.signIn(username, password)).token
+      let refreshToken, accessToken
+      try {
+        refreshToken = await api.auth.signIn(username, password)
+        accessToken = await api.auth.refresh(refreshToken)
+      } catch (error) {
+        this.$root.$refs.alert.showAlert('error', error.message, error.name)
+        return
+      }
+
       localStorage.setItem('refreshToken', refreshToken)
-
-      const accessToken = (await api.auth.refresh(refreshToken)).access
       localStorage.setItem('accessToken', accessToken)
 
       this.$root.$refs.alert.showAlert('success', 'You are signed in.', 'Success')
