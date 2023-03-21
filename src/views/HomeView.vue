@@ -1,4 +1,5 @@
 <template>
+  <the-header />
   <main>
     <div class="sm:flex justify-between items-center p-4">
       <h2 class="text-2xl px-0 lg:px-4 my-2 lg:my-0">{{ games.totalElements }} games available</h2>
@@ -21,6 +22,7 @@
 
 <script>
 import api from '@/api'
+import TheHeader from '@/components/TheHeader.vue'
 import GamesListFilter from '@/components/GamesListFilter.vue'
 import GamesListItem from '@/components/GamesListItem.vue'
 
@@ -49,6 +51,7 @@ export default {
     }
   },
   components: {
+    TheHeader,
     GamesListItem,
     GamesListFilter
   }
