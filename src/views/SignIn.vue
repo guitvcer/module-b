@@ -37,6 +37,8 @@ export default {
     async signIn(event) {
       const username = event.target.username.value
       const password = event.target.password.value
+      event.target.reset()
+
       const refreshToken = (await api.auth.signIn(username, password)).token
       localStorage.setItem('refreshToken', refreshToken)
 
