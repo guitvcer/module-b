@@ -2,7 +2,7 @@
   <main-page-wrapper>
     <main v-if="game" class="p-4">
       <h2 class="text-2xl p-2">{{ game.title }}</h2>
-      <img src="https://www.planetware.com/wpimages/2019/11/canada-in-pictures-beautiful-places-to-photograph-morraine-lake.jpg" alt="" class="w-full">
+      <iframe :src="getGameServeUrl()" class="w-full h-96 border rounded-md"></iframe>
       <section class="grid md:grid-cols-2 gap-8 py-2">
         <div>
           <h3 class="text-xl py-2 underline">Top 10 Leaderboard</h3>
@@ -31,6 +31,7 @@
 </template>
 
 <script>
+import { base_url } from '@/settings'
 import api from '@/api'
 import MainPageWrapper from '@/components/MainPageWrapper.vue'
 import router from '@/router'
@@ -41,12 +42,18 @@ export default {
   },
   data() {
     return {
-      game: null
+      game: null,
+      source: null
     }
   },
   async mounted() {
     const slug = router.currentRoute.value.params.slug
     this.game = await api.games.getBySlug(slug)
+  },
+  methods: {
+    getGameServeUrl() {
+      return `${base_url}/games/${this.game.slug}/${this.game.lastVersion}`
+    }
   }
 }
 </script>

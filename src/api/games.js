@@ -15,7 +15,13 @@ const getBySlug = async (slug) => {
   return await sendRequest(url)
 }
 
+const serve = async (slug, version) => {
+  const url = `${api_url}/games/${slug}/${version}`
+  return await sendRequest(url)
+}
+
 export default {
   get,
-  getBySlug
+  getBySlug,
+  serve
 }
