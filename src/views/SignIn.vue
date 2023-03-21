@@ -43,6 +43,7 @@ export default {
       const accessToken = (await api.auth.refresh(refreshToken)).access
       localStorage.setItem('accessToken', accessToken)
 
+      this.$root.$refs.alert.showAlert('success', 'You are signed in.', 'Success')
       await router.push({ name: 'home' })
     }
   }
