@@ -2,23 +2,44 @@
   <header class="px-4 py-2
                  flex justify-between items-center
                  border-b dark:border-zinc-700">
-    <h1>
-      <router-link :to="{name: 'home'}"
-         class="inline
-                py-1 px-2
-                text-xl font-black italic text-slate-100
-                bg-slate-600 hover:bg-slate-700 dark:bg-zinc-900 hover:dark:bg-black
-                rounded-tl-md rounded-br-md">
-        WorldSkills: Games
-      </router-link>
-    </h1>
+    <logo />
     <div>
-      <a href="#" class="px-2 hover:underline">
+      <a
+        v-if="!isAuthenticated()"
+        href="#"
+        class="px-2 hover:underline"
+      >
         Sign Up
       </a>
-      <a href="#" class="px-2 hover:underline">
+      <router-link
+        v-if="!isAuthenticated()"
+        :to="{name: 'signIn'}"
+        class="px-2 hover:underline"
+      >
         Sign In
+      </router-link>
+      <a
+        v-if="isAuthenticated()"
+        href="#"
+        class="px-2 hover:underline"
+      >
+        Sign Out
       </a>
     </div>
   </header>
 </template>
+
+<script>
+import Logo from '@/components/Logo.vue'
+
+export default {
+  components: {
+    Logo
+  },
+  methods: {
+    isAuthenticated() {
+      return Boolean(localStorage.accessToken)
+    }
+  }
+}
+</script>

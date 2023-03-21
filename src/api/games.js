@@ -1,11 +1,31 @@
 import { api_url } from '@/settings'
+import api from '.'
+
+const getHeaders = () => {
+  const headers = {}
+  if (localStorage.accessToken) {
+    headers.Authorization = `Bearer ${localStorage.accessToken}`
+  }
+
+  return headers
+}
+
+const get = async (sortBy, sortDir) => {
+  const params = new URLSearchParams({
+    sortBy, sortDir
+  })
+  const url = `${api_url}/games?${params}`
+  const headers = getHeaders()
+  const response = await fetch(url, {headers})
+  if (response.status === 401) {
+    const accessToken = await api.auth.refresh(localStorage.refreshToken)
+    localStorage.setItem('accessToken', accessToken)
+    return await get(sortBy, sortDir)
+  }
+
+  return await response.json()
+}
 
 export default {
-  async get(sortBy, sortDir) {
-    const params = new URLSearchParams({
-      sortBy, sortDir
-    })
-    const url = `${api_url}/games?${params}`
-    return fetch(url).then(response => response.json())
-  }
+  get
 }
