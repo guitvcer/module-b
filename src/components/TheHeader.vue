@@ -18,13 +18,13 @@
       >
         Sign In
       </router-link>
-      <a
+      <router-link
         v-if="isAuthenticated()"
-        href="#"
+        :to="{name: 'signOut'}"
         class="px-2 hover:underline"
       >
         Sign Out
-      </a>
+      </router-link>
     </div>
   </header>
 </template>
