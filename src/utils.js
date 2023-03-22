@@ -4,9 +4,17 @@ export const isAuthenticated = () => {
   return Boolean(localStorage.accessToken)
 }
 
-export const sendRequest = async (url) => {
+export const sendRequest = async (url, method, body) => {
   const headers = getHeaders()
-  const response = await fetch(url, {headers})
+  const options = {headers}
+  if (method) {
+    options.method = method
+  }
+  if (body) {
+    options.body = JSON.stringify(body)
+  }
+
+  const response = await fetch(url, options)
 
   if (response.status === 401) {
     const accessToken = await api.auth.refresh(localStorage.refreshToken)
@@ -18,7 +26,9 @@ export const sendRequest = async (url) => {
 }
 
 const getHeaders = () => {
-  const headers = {}
+  const headers = {
+    'Content-Type': 'application/json'
+  }
   if (isAuthenticated()) {
     headers.Authorization = `Bearer ${localStorage.accessToken}`
   }

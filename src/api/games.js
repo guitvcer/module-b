@@ -25,9 +25,15 @@ const getScores = async (slug) => {
   return await sendRequest(url)
 }
 
+const publishScore = async (slug, score) => {
+  const url = `${api_url}/games/${slug}/scores`
+  return await sendRequest(url, 'POST', {score})
+}
+
 export default {
   get,
   getBySlug,
   serve,
-  getScores
+  getScores,
+  publishScore
 }

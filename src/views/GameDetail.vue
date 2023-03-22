@@ -2,7 +2,7 @@
   <main-page-wrapper>
     <main v-if="game" class="p-4">
       <h2 class="text-2xl p-2">{{ game.title }}</h2>
-      <iframe :src="getGameServeUrl()" class="w-full h-96 border rounded-md"></iframe>
+      <iframe :src="getGameServeUrl()" class="w-full h-96 border rounded-md" name="testFrame"></iframe>
       <section class="grid md:grid-cols-2 gap-8 py-2">
         <div>
           <h3 class="text-xl py-2 underline">Top 10 Leaderboard</h3>
@@ -15,7 +15,7 @@
               <p class="block">{{ scores[index - 1].score }}</p>
             </li>
             <li
-              class="inline-flex justify-between w-full font-bold"
+              class="inline-flex justify-between w-full font-bold my-1"
               v-if="isAuthenticated() && myScore && myScore.index > 9"
             >
               <p class="block">#{{ +myScore.index }}. {{ myScore.username }}</p>
@@ -58,6 +58,15 @@ export default {
 
     await this.loadScores()
     setInterval(this.loadScores, 5000)
+
+    window.addEventListener('message', async event => {
+      if (event.data.event_type === 'game_run_end') {
+        if (confirm('Would you like to publish your score?')) {
+          await api.games.publishScore(this.game.slug, Math.round(event.data.score))
+          await this.loadScores()
+        }
+      }
+    })
   },
   methods: {
     getGameServeUrl() {
