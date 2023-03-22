@@ -89,6 +89,11 @@ export default {
       return `${base_url}/games/${this.game.slug}/${this.game.lastVersion}`
     },
     async loadScores() {
+      const currentRoute = router.currentRoute.value
+      if (currentRoute.name !== 'gameDetail' || currentRoute.params.slug !== this.game.slug) {
+        return
+      }
+
       const scores = (await api.games.getScores(this.game.slug)).scores
 
       if (isAuthenticated()) {
