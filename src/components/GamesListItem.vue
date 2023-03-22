@@ -6,7 +6,12 @@
     >
     <div class="p-2">
       <h3 class="py-1">
-        <a href="#" class="text-xl font-bold hover:underline">{{ game.title }}</a>
+        <router-link
+          :to="{name: 'gameDetail', params: {slug: game.slug}}"
+          class="text-xl font-bold hover:underline"
+        >
+          {{ game.title }}
+        </router-link>
       </h3>
       <p>{{ game.description }}</p>
       <p class="py-2 pb-4 sm:pb-0 text-zinc-500">
