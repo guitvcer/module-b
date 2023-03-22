@@ -19,6 +19,13 @@
         Sign In
       </router-link>
       <router-link
+        v-if="isAuthenticated() && username"
+        :to="{name: 'userProfile', params: {username}}"
+        class="px-2 hover:underline"
+      >
+        <b>{{ username }}</b>
+      </router-link>
+      <router-link
         v-if="isAuthenticated()"
         :to="{name: 'signOut'}"
         class="px-2 hover:underline"
@@ -30,15 +37,25 @@
 </template>
 
 <script>
+import jwt_decode from 'jwt-decode'
+import { isAuthenticated } from '@/utils'
 import Logo from '@/components/Logo.vue'
 
 export default {
+  data() {
+    return {
+      username: null
+    }
+  },
   components: {
     Logo
   },
   methods: {
-    isAuthenticated() {
-      return Boolean(localStorage.accessToken)
+    isAuthenticated
+  },
+  mounted() {
+    if (isAuthenticated()) {
+      this.username = jwt_decode(localStorage.accessToken).username
     }
   }
 }
