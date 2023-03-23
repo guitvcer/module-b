@@ -46,7 +46,6 @@ export default {
   },
   methods: {
     async loadUser() {
-      console.log('loadUser')
       this.user = await api.users.get(this.username)
     }
   }
