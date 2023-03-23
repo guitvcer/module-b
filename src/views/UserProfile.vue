@@ -25,7 +25,8 @@ import GamesListItem from '@/components/GamesListItem.vue'
 export default {
   data() {
     return {
-      user: null
+      user: null,
+      username: router.currentRoute.value.params.username
     }
   },
   components: {
@@ -33,7 +34,21 @@ export default {
     GamesListItem
   },
   async mounted() {
-    this.user = await api.users.get(router.currentRoute.value.params.username)
+    await this.loadUser()
+  },
+  created() {
+    this.$watch(
+      () => this.$route.params, async (toParams, previousParams) => {
+        this.username = toParams.username
+        await this.loadUser()
+      }
+    )
+  },
+  methods: {
+    async loadUser() {
+      console.log('loadUser')
+      this.user = await api.users.get(this.username)
+    }
   }
 }
 </script>
