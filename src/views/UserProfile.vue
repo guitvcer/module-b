@@ -2,7 +2,7 @@
   <main-page-wrapper>
     <main v-if="user" class="p-4">
       <h2 class="underline text-2xl my-4">{{ user.username }}</h2>
-      <section>
+      <section v-if="user.authoredGames">
         <h3 class="text-xl">Authored Games</h3>
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-4 gap-y-0 sm:gap-y-4 py-4">
           <games-list-item
