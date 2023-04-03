@@ -14,7 +14,7 @@
         </router-link>
       </h3>
       <p>{{ game.description }}</p>
-      <p class="py-2 pb-4 sm:pb-0 text-zinc-500">
+      <p class="py-2 pb-4 sm:pb-0 text-zinc-500" v-if="game.author">
         by
         <a href="#" class="underline hover:text-zinc-400">{{ game.author }}</a>
         at {{ formatDateTime(game.uploadTimestamp) }}

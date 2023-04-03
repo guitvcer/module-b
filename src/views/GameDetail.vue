@@ -11,14 +11,30 @@
               v-for="index in scores.length >= 10 ? 10 : scores.length"
               :class="[myScore && index === myScore.index ? 'font-bold' : '', 'inline-flex justify-between w-full']"
             >
-              <p class="block">#{{ index }}. {{ scores[index - 1].username }}</p>
+              <p class="block">
+                #{{ index }}.
+                <router-link
+                  :to="{name: 'userProfile', params: {username: scores[index - 1].username}}"
+                  class="hover:underline"
+                >
+                  {{ scores[index - 1].username }}
+                </router-link>
+              </p>
               <p class="block">{{ scores[index - 1].score }}</p>
             </li>
             <li
               class="inline-flex justify-between w-full font-bold my-1"
               v-if="isAuthenticated() && myScore && myScore.index > 9"
             >
-              <p class="block">#{{ +myScore.index }}. {{ myScore.username }}</p>
+              <p class="block">
+                #{{ +myScore.index }}.
+                <router-link
+                  :to="{name: 'userProfile', params: {username: myScore.username}}"
+                  class="hover:underline"
+                >
+                  {{ myScore.username }}
+                </router-link>
+              </p>
               <p class="block">{{ myScore.score }}</p>
             </li>
           </ul>
@@ -73,6 +89,11 @@ export default {
       return `${base_url}/games/${this.game.slug}/${this.game.lastVersion}`
     },
     async loadScores() {
+      const currentRoute = router.currentRoute.value
+      if (currentRoute.name !== 'gameDetail' || currentRoute.params.slug !== this.game.slug) {
+        return
+      }
+
       const scores = (await api.games.getScores(this.game.slug)).scores
 
       if (isAuthenticated()) {

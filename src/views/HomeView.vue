@@ -40,7 +40,7 @@ export default {
   },
   methods: {
     async loadGames() {
-      this.games = await api.games.get(this.sortDir, this.sortDir)
+      this.games = await api.games.get(this.sortBy, this.sortDir)
     }
   },
   watch: {
