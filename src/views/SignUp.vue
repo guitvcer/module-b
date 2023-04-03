@@ -76,7 +76,7 @@ export default {
       localStorage.setItem('refreshToken', refreshToken)
       localStorage.setItem('accessToken', accessToken)
 
-      this.$root.$refs.alert.showAlert('success', 'You are signed in.', 'Success')
+      this.$root.$refs.alert.showAlert('success', 'You are signed up.', 'Success')
       await router.push({ name: 'home' })
     }
   },
