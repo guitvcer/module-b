@@ -38,7 +38,7 @@
               <p class="block">{{ myScore.score }}</p>
             </li>
           </ul>
-          <p v-else class="text-sm text-zinc-700">Empty list</p>
+          <p v-else class="text-sm text-zinc-700 dark:text-slate-300">Empty list</p>
         </div>
         <div>
           <h3 class="text-xl py-2 underline">Description</h3>

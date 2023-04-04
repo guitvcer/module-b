@@ -20,6 +20,11 @@ const serve = async (slug, version) => {
   return await sendRequest(url)
 }
 
+const update = async (slug, title, description) => {
+  const url = `${api_url}/games/${slug}`
+  return await sendRequest(url, 'PUT', {title, description})
+}
+
 const getScores = async (slug) => {
   const url = `${api_url}/games/${slug}/scores`
   return await sendRequest(url)
@@ -34,6 +39,7 @@ export default {
   get,
   getBySlug,
   serve,
+  update,
   getScores,
   publishScore
 }
