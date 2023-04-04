@@ -1,5 +1,5 @@
 <template>
-  <article class="hover:bg-slate-50 hover:dark:bg-zinc-800 hover:opacity-80">
+  <article class="hover:bg-slate-50 hover:dark:bg-zinc-800 hover:opacity-80" v-if="game">
     <img :src="getThumbnailUrl()"
          :alt="`${game.title} thumbnail`"
          class="w-full h-40"
