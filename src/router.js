@@ -36,6 +36,11 @@ const routes = [
     path: '/games/:slug/manage',
     name: 'manageGame',
     component: () => import('@/views/ManageGame.vue')
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    name: 'notFound',
+    component: () => import('@/views/NotFound.vue')
   }
 ]
 
