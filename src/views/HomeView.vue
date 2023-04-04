@@ -57,7 +57,7 @@ export default {
       this.games = refreshedGames
     },
     async onScroll(event) {
-      if (this.$router.currentRoute.name !== 'home') {
+      if (this.$router.currentRoute.value.name !== 'home') {
         return
       }
 
