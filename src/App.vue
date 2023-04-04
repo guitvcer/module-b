@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-slate-50 dark:bg-zinc-900 dark:text-zinc-100 min-h-screen">
+  <div class="bg-slate-50 dark:bg-zinc-900 dark:text-zinc-100 min-h-screen" id="testScroll">
     <router-view />
     <vue-basic-alert
       :closeIn="3000"

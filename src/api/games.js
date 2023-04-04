@@ -2,9 +2,9 @@ import { api_url } from '@/settings'
 import { sendRequest } from '@/utils'
 
 
-const get = async (sortBy, sortDir) => {
+const get = async (sortBy, sortDir, page) => {
   const params = new URLSearchParams({
-    sortBy, sortDir
+    sortBy, sortDir, page
   })
   const url = `${api_url}/games?${params}`
   return await sendRequest(url)

@@ -30,17 +30,36 @@ import GamesListItem from '@/components/GamesListItem.vue'
 export default {
   data() {
     return {
-      games: [],
+      games: {
+        totalElements: 0,
+        content: [],
+        page: 0,
+        size: 10
+      },
       sortBy: 'popular',
-      sortDir: 'desc'
+      sortDir: 'desc',
     }
   },
   async mounted() {
     await this.loadGames()
+
+    window.addEventListener('scroll', this.onScroll)
   },
   methods: {
     async loadGames() {
-      this.games = await api.games.get(this.sortBy, this.sortDir)
+      const refreshedGames = await api.games.get(this.sortBy, this.sortDir, this.games.page + 1)
+      if (refreshedGames.status === 'not_found') {
+        return
+      }
+
+      refreshedGames.content = this.games.content.concat(refreshedGames.content)
+
+      this.games = refreshedGames
+    },
+    async onScroll(event) {
+      if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+        await this.loadGames()
+      }
     }
   },
   watch: {
