@@ -57,6 +57,10 @@ export default {
       this.games = refreshedGames
     },
     async onScroll(event) {
+      if (this.$router.currentRoute.name !== 'home') {
+        return
+      }
+
       if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
         await this.loadGames()
       }
