@@ -5,15 +5,26 @@
          class="w-full h-40"
     >
     <div class="p-2">
-      <h3 class="py-1">
+      <div class="flex justify-between">
+        <div>
+          <h3 class="py-1">
+            <router-link
+                :to="{name: 'gameDetail', params: {slug: game.slug}}"
+                class="text-xl font-bold hover:underline"
+            >
+              {{ game.title }}
+            </router-link>
+          </h3>
+          <p>{{ game.description }}</p>
+        </div>
         <router-link
-          :to="{name: 'gameDetail', params: {slug: game.slug}}"
-          class="text-xl font-bold hover:underline"
+          v-if="game.author === getCurrentUsername()"
+          :to="{name: 'manageGame', params: {slug: game.slug}}"
+          class="hover:underline"
         >
-          {{ game.title }}
+          Edit
         </router-link>
-      </h3>
-      <p>{{ game.description }}</p>
+      </div>
       <p class="py-2 pb-4 sm:pb-0 text-zinc-500" v-if="game.author">
         by
         <a href="#" class="underline hover:text-zinc-400">{{ game.author }}</a>
@@ -24,6 +35,7 @@
 </template>
 
 <script>
+import jwt_decode from 'jwt-decode'
 import { base_url } from '@/settings.js'
 
 export default {
@@ -66,6 +78,12 @@ export default {
       const year = dateTime_.getFullYear()
 
       return `${day} ${monthName} ${year}`
+    },
+    getCurrentUsername() {
+      const accessToken = localStorage.accessToken
+      if (accessToken) {
+        return jwt_decode(accessToken).username
+      }
     }
   }
 }
